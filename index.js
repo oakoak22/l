@@ -460,10 +460,19 @@ bot.onText(/\/ai (.+)/, async (msg, match) => {
 });
 
 //Tambah Premium
+const fs = require('fs');
+
+// Membaca owner ID dari owner.json
+const ownerData = JSON.parse(fs.readFileSync('owner.json', 'utf8'));
+const owner = ownerData.owner; // ID Owner dari file owner.json
+
 bot.onText(/\/addprem @(\w+)/, (msg, match) => {
     const chatId = msg.chat.id;
     const username = match[1];
-    
+
+    console.log("User ID: " + msg.from.id); // Log ID user
+    console.log("Owner ID: " + owner); // Log ID owner dari owner.json
+
     if (msg.from.id.toString() === owner) {
         if (!premiumUsers.includes(username)) {
             premiumUsers.push(username);
@@ -481,7 +490,10 @@ bot.onText(/\/addprem @(\w+)/, (msg, match) => {
 bot.onText(/\/delprem @(\w+)/, (msg, match) => {
     const chatId = msg.chat.id;
     const username = match[1];
-    
+
+    console.log("User ID: " + msg.from.id); // Log ID user
+    console.log("Owner ID: " + owner); // Log ID owner dari owner.json
+
     if (msg.from.id.toString() === owner) {
         const index = premiumUsers.indexOf(username);
         if (index !== -1) {
@@ -518,7 +530,26 @@ function loadBotnetData() {
     try {
         return JSON.parse(fs.readFileSync('./lib/botnet.json', 'utf8'));
     } catch (error) {
-        console.error('Error loading botnet data:', error.message);
+        console.error('Error loading botnet data:', error.messbot.onText(/\/delprem @(\w+)/, (msg, match) => {
+    const chatId = msg.chat.id;
+    const username = match[1];
+
+    console.log("User ID: " + msg.from.id); // Log ID user
+    console.log("Owner ID: " + owner); // Log ID owner dari owner.json
+
+    if (msg.from.id.toString() === owner) {
+        const index = premiumUsers.indexOf(username);
+        if (index !== -1) {
+            premiumUsers.splice(index, 1);
+            fs.writeFileSync(premiumUsersFile, JSON.stringify(premiumUsers));
+            bot.sendMessage(chatId, `User @${username} has been removed from premium users.`);
+        } else {
+            bot.sendMessage(chatId, `User @${username} is not a premium user.`);
+        }
+    } else {
+        bot.sendMessage(chatId, 'Only the owner can perform this action.');
+    }
+});age);
         return { endpoints: [] };
     }
 }
