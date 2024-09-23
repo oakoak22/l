@@ -459,9 +459,6 @@ bot.onText(/\/ai (.+)/, async (msg, match) => {
   bot.sendMessage(chatId, aiResponse);
 });
 
-//Tambah Premium
-const fs = require('fs');
-
 // Membaca owner ID dari owner.json
 const ownerData = JSON.parse(fs.readFileSync('owner.json', 'utf8'));
 const owner = ownerData.owner; // ID Owner dari file owner.json
